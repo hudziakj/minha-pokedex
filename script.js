@@ -40,7 +40,29 @@ function obterPokemons() {
 }
 
 function abrirModal(pokemon) {
-    console.log('Modal aberto para:', pokemon);
+    const modal = document.getElementById('modal');
+    const modalTitle = document.getElementById('modal-title');
+    const modalStats = document.getElementById('modal-stats');
+    const closeButton = document.querySelector('.close');
+    modalTitle.textContent = pokemon.name;
+    modalStats.innerHTML = '';
+
+    pokemon.stats.forEach((stat) => {
+        const statElement = document.createElement('div');
+        statElement.textContent = `${stat.stat.name}: ${stat.base_stat}`;
+        modalStats.appendChild(statElement);
+    });
+
+    modal.style.display = 'block';
+    closeButton.addEventListener('click', () => {
+        modal.style.display = 'none';
+    });
+
+    window.addEventListener('click', (event) => {
+        if (event.target == modal) {
+            modal.style.display = 'none';
+        }
+    });
 }
 
 obterPokemons();
